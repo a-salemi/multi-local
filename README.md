@@ -100,7 +100,10 @@ exit 0
 IP: 178.239.155.43
 
 ```
+nano /etc/rc.local
+```
 
+```
 #!/bin/bash
 IP_IRAN="178.239.155.43"
 IP_KHAREJ="91.107.254.131"
