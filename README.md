@@ -94,12 +94,10 @@ netfilter-persistent save
 exit 0
 ```
 
-```
-chmod +x /etc/rc.local
-```
 
 # اجرای اسکریپت برای برقراری تونل
 ```
+chmod +x /etc/rc.local
 /etc/rc.local
 ```
 بخش سوم: تنظیمات سرورهای ایران (کلاینت‌ها)
@@ -131,12 +129,10 @@ netfilter-persistent save
 exit 0
 ```
 
-```
-chmod +x /etc/rc.local
-```
 
 # اجرای اسکریپت برای برقراری تونل
 ```
+chmod +x /etc/rc.local
 /etc/rc.local
 ```
 ۲. اسکریپت سرور ایران ۲
@@ -165,12 +161,10 @@ netfilter-persistent save
 exit 0
 ```
 
-```
-chmod +x /etc/rc.local
-```
 
 # اجرای اسکریپت برای برقراری تونل
 ```
+chmod +x /etc/rc.local
 /etc/rc.local
 ```
 ۳. اسکریپت سرور ایران ۳
@@ -199,12 +193,10 @@ netfilter-persistent save
 exit 0
 ```
 
-```
-chmod +x /etc/rc.local
-```
 
 # اجرای اسکریپت برای برقراری تونل
 ```
+chmod +x /etc/rc.local
 /etc/rc.local
 ```
 ۴. اسکریپت سرور ایران ۴
@@ -233,12 +225,10 @@ netfilter-persistent save
 exit 0
 ```
 
-```
-chmod +x /etc/rc.local
-```
 
 # اجرای اسکریپت برای برقراری تونل
 ```
+chmod +x /etc/rc.local
 /etc/rc.local
 ```
 ۵. اسکریپت سرور ایران ۵
@@ -267,12 +257,10 @@ netfilter-persistent save
 exit 0
 ```
 
-```
-chmod +x /etc/rc.local
-```
 
 # اجرای اسکریپت برای برقراری تونل
 ```
+chmod +x /etc/rc.local
 /etc/rc.local
 ```
 بخش چهارم: اجرا و تست نهایی
@@ -281,15 +269,7 @@ chmod +x /etc/rc.local
 
 
 
-# دادن دسترسی اجرا به فایل
-```
-chmod +x /etc/rc.local
-```
 
-# اجرای اسکریپت برای برقراری تونل
-```
-/etc/rc.local
-```
 ۲. تست اتصال
 لیست ایپی های سرور های ایران ( لوکال ).
 
