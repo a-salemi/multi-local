@@ -6,7 +6,10 @@
 قبل از هر کاری، باید ابزار لازم برای ذخیره دائمی تنظیمات فایروال را نصب کنیم. این دستور را روی تمام ۶ سرور اجرا کنید.
 
 
-``` apt-get update && apt-get install -y iptables-persistent ```
+
+```
+apt-get update && apt-get install -y iptables-persistent
+```
 نکته: در حین نصب، برای هر دو سوالی که پرسیده می‌شود (Save current IPv4 rules? و Save current IPv6 rules?)، گزینه‌ی <Yes> را انتخاب کنید.
 
 بخش دوم: تنظیمات سرور خارج (سرور مرکزی)
@@ -15,7 +18,9 @@
 ۱. ایجاد فایل تنظیمات
 دستور زیر را برای ایجاد و ویرایش فایل rc.local در سرور خارج اجرا کنید:
 
-```nano /etc/rc.local```
+```
+nano /etc/rc.local
+```
 ۲. کپی کردن اسکریپت
 محتوای زیر را به طور کامل در فایل rc.local کپی کنید.
 
@@ -112,11 +117,15 @@ echo "net.ipv4.ip_forward=1" > /etc/sysctl.conf
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
+```
 ۲. اسکریپت سرور ایران ۲
 IP: 178.239.155.171
 
-Bash
+```
+nano /etc/rc.local
+```
 
+```
 #!/bin/bash
 IP_IRAN="178.239.155.171"
 IP_KHAREJ="91.107.254.131"
@@ -138,7 +147,10 @@ exit 0
 IP: 178.239.155.228
 
 ```
+nano /etc/rc.local
+```
 
+```
 #!/bin/bash
 IP_IRAN="178.239.155.228"
 IP_KHAREJ="91.107.254.131"
@@ -160,7 +172,10 @@ exit 0
 IP: 178.239.155.72
 
 ```
+nano /etc/rc.local
+```
 
+```
 #!/bin/bash
 IP_IRAN="178.239.155.72"
 IP_KHAREJ="91.107.254.131"
@@ -182,7 +197,10 @@ exit 0
 IP: 178.239.155.208
 
 ```
+nano /etc/rc.local
+```
 
+```
 #!/bin/bash
 IP_IRAN="178.239.155.208"
 IP_KHAREJ="91.107.254.131"
