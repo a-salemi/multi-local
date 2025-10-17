@@ -6,7 +6,7 @@
 قبل از هر کاری، باید ابزار لازم برای ذخیره دائمی تنظیمات فایروال را نصب کنیم. این دستور را روی تمام ۶ سرور اجرا کنید.
 
 
-```apt-get update && apt-get install -y iptables-persistent```
+``` apt-get update && apt-get install -y iptables-persistent ```
 نکته: در حین نصب، برای هر دو سوالی که پرسیده می‌شود (Save current IPv4 rules? و Save current IPv6 rules?)، گزینه‌ی <Yes> را انتخاب کنید.
 
 بخش دوم: تنظیمات سرور خارج (سرور مرکزی)
