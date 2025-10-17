@@ -4,7 +4,7 @@
 
 # نصب خودکار ( فقط سرور خارج ) :
 ```
-bash <(curl -sL https://raw.githubusercontent.com/a-salemi/multi-local/main/kharej-tunnel.sh.sh)
+bash <(curl -sL https://raw.githubusercontent.com/a-salemi/multi-local/main/kharej-tunnel.sh)
 ```
 
 
