@@ -93,6 +93,15 @@ netfilter-persistent save
 
 exit 0
 ```
+
+```
+chmod +x /etc/rc.local
+```
+
+# اجرای اسکریپت برای برقراری تونل
+```
+/etc/rc.local
+```
 بخش سوم: تنظیمات سرورهای ایران (کلاینت‌ها)
 برای هر کدام از ۵ سرور ایران، اسکریپت مخصوص به خودش را در فایل /etc/rc.local آن سرور قرار دهید.
 
@@ -121,6 +130,15 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
 ```
+
+```
+chmod +x /etc/rc.local
+```
+
+# اجرای اسکریپت برای برقراری تونل
+```
+/etc/rc.local
+```
 ۲. اسکریپت سرور ایران ۲
 IP: 178.239.155.171
 
@@ -145,6 +163,15 @@ echo "net.ipv4.ip_forward=1" > /etc/sysctl.conf
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
+```
+
+```
+chmod +x /etc/rc.local
+```
+
+# اجرای اسکریپت برای برقراری تونل
+```
+/etc/rc.local
 ```
 ۳. اسکریپت سرور ایران ۳
 IP: 178.239.155.228
@@ -171,6 +198,15 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
 ```
+
+```
+chmod +x /etc/rc.local
+```
+
+# اجرای اسکریپت برای برقراری تونل
+```
+/etc/rc.local
+```
 ۴. اسکریپت سرور ایران ۴
 IP: 178.239.155.72
 
@@ -195,6 +231,15 @@ echo "net.ipv4.ip_forward=1" > /etc/sysctl.conf
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
+```
+
+```
+chmod +x /etc/rc.local
+```
+
+# اجرای اسکریپت برای برقراری تونل
+```
+/etc/rc.local
 ```
 ۵. اسکریپت سرور ایران ۵
 IP: 178.239.155.208
@@ -221,6 +266,15 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
 ```
+
+```
+chmod +x /etc/rc.local
+```
+
+# اجرای اسکریپت برای برقراری تونل
+```
+/etc/rc.local
+```
 بخش چهارم: اجرا و تست نهایی
 ۱. اجرای اسکریپت‌ها
 بعد از قرار دادن اسکریپت‌ها در فایل /etc/rc.local هر سرور، این دو دستور را به ترتیب روی تمام ۶ سرور اجرا کنید:
@@ -228,10 +282,14 @@ exit 0
 
 
 # دادن دسترسی اجرا به فایل
-```chmod +x /etc/rc.local```
+```
+chmod +x /etc/rc.local
+```
 
 # اجرای اسکریپت برای برقراری تونل
-```/etc/rc.local```
+```
+/etc/rc.local
+```
 ۲. تست اتصال
 برای اطمینان کامل از برقراری ارتباط، از سرور خارج، آدرس‌های داخلی هر یک از سرورهای ایران را پینگ کنید.
 
