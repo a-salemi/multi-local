@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # =================================================================
-#      Universal IPv6 Tunnel Script (HUB & CLIENT) v1.0
+#      Universal IPv6 Tunnel Script (HUB & CLIENT) v2.1
 # =================================================================
 
 # --- Color Codes ---
@@ -172,7 +172,7 @@ function purge_menu() {
             ;;
         2)
             cleanup_client
-            G           ;;
+            ;;
         3)
             echo -e "\n${C_YELLOW}[*] Purge cancelled.${C_RESET}"
             ;;
@@ -189,7 +189,7 @@ function main_menu() {
     echo "  ╔══════════════════════════════════════════════════════════════╗"
     echo "  ║     ___  __  ___  __   __   __  ___  __   ___  __             ║"
     echo "  ║    |__  |  \|__  |  \ |  \ /  \  |  /  \ |__  |  \            ║"
-    echo "  ║    |___ |__/|___ |__/ |__/ \__/  |  \__/ |___ |__/ ver 2.0    ║"
+    echo "  ║    |___ |__/|___ |__/ |__/ \__/  |  \__/ |___ |__/ ver 2.1    ║"
     echo "  ║                                                              ║"
     echo "  ╚══════════════════════════════════════════════════════════════╝${C_RESET}"
     echo -e "${C_BLUE}                Universal Multi-Tunnel Management Script${C_RESET}"
@@ -213,7 +213,7 @@ function main_menu() {
         3)
             purge_menu
             ;;
-        4D           4)
+        4)  # <--- [FIXED] خطای تایپی اینجا برطرف شد
             echo -e "\n${C_YELLOW}[*] Disconnecting... Stay safe.${C_RESET}\n"
             exit 0
             ;;
