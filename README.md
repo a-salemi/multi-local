@@ -41,12 +41,12 @@ nano /etc/rc.local
 # =================================================================
 
 # --- بخش ۱: تعریف آدرس‌های IP ---
-IP_KHAREJ="91.107.254.131"
-IP_IRAN_1="178.239.155.43"
-IP_IRAN_2="178.239.155.171"
-IP_IRAN_3="178.239.155.228"
-IP_IRAN_4="178.239.155.72"
-IP_IRAN_5="178.239.155.208"
+IP_KHAREJ="91.107.xxx.xxx"
+IP_IRAN_1="178.239.xxx.xxx"
+IP_IRAN_2="178.239.xxx.xxx"
+IP_IRAN_3="178.239.xxx.xxx"
+IP_IRAN_4="178.239.xxx.xxx"
+IP_IRAN_5="178.239.xxx.xxx"
 
 # --- بخش ۲: پاکسازی و تنظیم اولیه فایروال ---
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
@@ -113,7 +113,7 @@ chmod +x /etc/rc.local
 برای هر کدام از ۵ سرور ایران، اسکریپت مخصوص به خودش را در فایل /etc/rc.local آن سرور قرار دهید.
 
 ۱. اسکریپت سرور ایران ۱
-IP: 178.239.155.43
+IP: 178.239.xxx.xxx
 
 ```
 nano /etc/rc.local
@@ -121,8 +121,8 @@ nano /etc/rc.local
 
 ```
 #!/bin/bash
-IP_IRAN="178.239.155.43"
-IP_KHAREJ="91.107.254.131"
+IP_IRAN="178.239.xxx.xxx"
+IP_KHAREJ="91.107.xxx.xxx"
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
@@ -145,7 +145,7 @@ chmod +x /etc/rc.local
 /etc/rc.local
 ```
 ۲. اسکریپت سرور ایران ۲
-IP: 178.239.155.171
+IP: 178.239.xxx.xxx
 
 ```
 nano /etc/rc.local
@@ -153,8 +153,8 @@ nano /etc/rc.local
 
 ```
 #!/bin/bash
-IP_IRAN="178.239.155.171"
-IP_KHAREJ="91.107.254.131"
+IP_IRAN="178.239.xxx.xxx"
+IP_KHAREJ="91.107.xxx.xxx"
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
@@ -177,7 +177,7 @@ chmod +x /etc/rc.local
 /etc/rc.local
 ```
 ۳. اسکریپت سرور ایران ۳
-IP: 178.239.155.228
+IP: 178.239.xxx.xxx
 
 ```
 nano /etc/rc.local
@@ -185,8 +185,8 @@ nano /etc/rc.local
 
 ```
 #!/bin/bash
-IP_IRAN="178.239.155.228"
-IP_KHAREJ="91.107.254.131"
+IP_IRAN="178.239.xxx.xxx"
+IP_KHAREJ="91.107.xxx.xxx"
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
@@ -209,7 +209,7 @@ chmod +x /etc/rc.local
 /etc/rc.local
 ```
 ۴. اسکریپت سرور ایران ۴
-IP: 178.239.155.72
+IP: 178.239.xxx.xxx
 
 ```
 nano /etc/rc.local
@@ -217,8 +217,8 @@ nano /etc/rc.local
 
 ```
 #!/bin/bash
-IP_IRAN="178.239.155.72"
-IP_KHAREJ="91.107.254.131"
+IP_IRAN="178.239.xxx.xxx"
+IP_KHAREJ="91.107.xxx.xxx"
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
@@ -241,7 +241,7 @@ chmod +x /etc/rc.local
 /etc/rc.local
 ```
 ۵. اسکریپت سرور ایران ۵
-IP: 178.239.155.208
+IP: 178.239.xxx.xxx
 
 ```
 nano /etc/rc.local
@@ -249,8 +249,8 @@ nano /etc/rc.local
 
 ```
 #!/bin/bash
-IP_IRAN="178.239.155.208"
-IP_KHAREJ="91.107.254.131"
+IP_IRAN="178.239.xxx.xxx"
+IP_KHAREJ="91.107.xxx.xxx"
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
