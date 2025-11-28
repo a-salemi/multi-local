@@ -38,7 +38,7 @@ graph TD
 اگر حوصله تنظیمات دستی را ندارید، از دستور زیر استفاده کنید:
 
 ```bash
-bash <(curl -sL [https://raw.githubusercontent.com/a-salemi/multi-local/main/ir7.sh](https://raw.githubusercontent.com/a-salemi/multi-local/main/ir7.sh))
+bash <(curl -sL (https://raw.githubusercontent.com/a-salemi/multi-local/main/ir7.sh))
 ```
 
 ---
