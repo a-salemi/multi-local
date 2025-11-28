@@ -1,46 +1,77 @@
-# Multi-Local
-راه‌اندازی تونل IPv6 (اتصال ۱ سرور خارج به ۵ سرور ایران)
-این راهنما به شما کمک می‌کند تا با استفاده از تونل‌های SIT (6to4) و IP6GRE، یک شبکه‌ی خصوصی و امن بین یک سرور خارج (به عنوان مرکز) و پنج سرور ایران (به عنوان کلاینت) ایجاد کنید.
+<div align="center">
 
-# نصب خودکار :
+# 🌐 Multi-Local Tunneling
+### اتصال پایدار و امن: ۱ سرور خارج ↔ ۵ سرور ایران
+استفاده از تکنولوژی‌های **SIT (6to4)** و **IP6GRE** برای ایجاد شبکه خصوصی
+
+![Bash](https://img.shields.io/badge/Language-Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
+![Linux](https://img.shields.io/badge/OS-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![IPv6](https://img.shields.io/badge/Network-IPv6-blue?style=for-the-badge&logo=internet-explorer&logoColor=white)
+
+</div>
+
+---
+
+## 📖 درباره پروژه
+این پروژه راهکاری برای ایجاد یک شبکه تونلینگ پایدار بین **یک سرور مرکزی (خارج)** و **پنج سرور کلاینت (ایران)** است. با استفاده از این اسکریپت‌ها، تداخلات معمول روتینگ برطرف شده و ارتباط امن از طریق IPv6 برقرار می‌شود.
+
+### 🗺️ معماری شبکه
+```mermaid
+graph TD
+    K[🌍 سرور خارج (Center)]
+    I1[🇮🇷 سرور ایران ۱]
+    I2[🇮🇷 سرور ایران ۲]
+    I3[🇮🇷 سرور ایران ۳]
+    I4[🇮🇷 سرور ایران ۴]
+    I5[🇮🇷 سرور ایران ۵]
+
+    K <==>|Tunnel 1| I1
+    K <==>|Tunnel 2| I2
+    K <==>|Tunnel 3| I3
+    K <==>|Tunnel 4| I4
+    K <==>|Tunnel 5| I5
 ```
-bash <(curl -sL https://raw.githubusercontent.com/a-salemi/multi-local/main/ir7.sh)
+
+---
+
+## 🚀 نصب سریع (Auto Install)
+اگر حوصله تنظیمات دستی را ندارید، از دستور زیر استفاده کنید:
+
+```bash
+bash <(curl -sL [https://raw.githubusercontent.com/a-salemi/multi-local/main/ir7.sh](https://raw.githubusercontent.com/a-salemi/multi-local/main/ir7.sh))
 ```
 
+---
 
+## 🛠️ پیش‌نیازها (روی تمام سرورها)
+قبل از شروع، پکیج `iptables-persistent` را روی **تمام ۶ سرور** نصب کنید تا تنظیمات بعد از ریبوت باقی بمانند.
 
-
-
-بخش اول: پیش‌نیاز (برای تمام سرورها)
-قبل از هر کاری، باید ابزار لازم برای ذخیره دائمی تنظیمات فایروال را نصب کنیم. این دستور را روی تمام ۶ سرور اجرا کنید.
-
-
-
-```
+```bash
 apt-get update && apt-get install -y iptables-persistent
 ```
-نکته: در حین نصب، برای هر دو سوالی که پرسیده می‌شود (Save current IPv4 rules? و Save current IPv6 rules?)، گزینه‌ی <Yes> را انتخاب کنید.
+> **نکته:** در حین نصب، به هر دو سوال (`Save IPv4/IPv6 rules`) پاسخ **Yes** بدهید.
 
-بخش دوم: تنظیمات سرور خارج (سرور مرکزی)
-این اسکریپت کامل و بی‌نقص برای سرور اصلی شما است. تمام مشکلات قبلی مانند تداخل نام و قوانین فایروال در آن حل شده است.
+---
 
-۱. ایجاد فایل تنظیمات
-دستور زیر را برای ایجاد و ویرایش فایل rc.local در سرور خارج اجرا کنید:
+## ⚙️ بخش اول: تنظیمات سرور خارج (Center)
+فایل `/etc/rc.local` را ویرایش کرده و اسکریپت زیر را جایگزین کنید.
+*(فراموش نکنید که IPهای داخل اسکریپت را با IPهای واقعی خود جایگزین کنید)*
 
-```
+```bash
 nano /etc/rc.local
 ```
-۲. کپی کردن اسکریپت
-محتوای زیر را به طور کامل در فایل rc.local کپی کنید.
 
-```
+<details>
+<summary><b>📄 مشاهده کد کامل سرور خارج (کلیک کنید)</b></summary>
+
+```bash
 #!/bin/bash
 
 # =================================================================
-#           اسکریپت نهایی و کامل برای سرور خارج (مرکزی)
+#            اسکریپت نهایی و کامل برای سرور خارج (مرکزی)
 # =================================================================
 
-# --- بخش ۱: تعریف آدرس‌های IP ---
+# --- بخش ۱: تعریف آدرس‌های IP (این بخش را ویرایش کنید) ---
 IP_KHAREJ="91.107.xxx.xxx"
 IP_IRAN_1="178.239.xxx.xxx"
 IP_IRAN_2="178.239.xxx.xxx"
@@ -52,9 +83,9 @@ IP_IRAN_5="178.239.xxx.xxx"
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
 
-# --- بخش ۳: ساخت تونل‌ها با نام‌های منحصر به فرد ---
+# --- بخش ۳: ساخت تونل‌ها ---
 
-# تونل برای سرور ایران ۱
+# تونل سرور ایران ۱
 ip tunnel add IRAN1_SIT mode sit remote $IP_IRAN_1 local $IP_KHAREJ
 ip -6 addr add fd45:f7a7:539a::1/64 dev IRAN1_SIT
 ip link set IRAN1_SIT mtu 1480 up
@@ -62,7 +93,7 @@ ip -6 tunnel add IRAN1_GRE mode ip6gre remote fd45:f7a7:539a::2 local fd45:f7a7:
 ip addr add 172.16.1.1/30 dev IRAN1_GRE
 ip link set IRAN1_GRE mtu 1436 up
 
-# تونل برای سرور ایران ۲
+# تونل سرور ایران ۲
 ip tunnel add IRAN2_SIT mode sit remote $IP_IRAN_2 local $IP_KHAREJ
 ip -6 addr add fda5:d72a:4e2f::1/64 dev IRAN2_SIT
 ip link set IRAN2_SIT mtu 1480 up
@@ -70,7 +101,7 @@ ip -6 tunnel add IRAN2_GRE mode ip6gre remote fda5:d72a:4e2f::2 local fda5:d72a:
 ip addr add 172.16.2.1/30 dev IRAN2_GRE
 ip link set IRAN2_GRE mtu 1436 up
 
-# تونل برای سرور ایران ۳
+# تونل سرور ایران ۳
 ip tunnel add IRAN3_SIT mode sit remote $IP_IRAN_3 local $IP_KHAREJ
 ip -6 addr add fd11:e4fd:f055::1/64 dev IRAN3_SIT
 ip link set IRAN3_SIT mtu 1480 up
@@ -78,7 +109,7 @@ ip -6 tunnel add IRAN3_GRE mode ip6gre remote fd11:e4fd:f055::2 local fd11:e4fd:
 ip addr add 172.16.3.1/30 dev IRAN3_GRE
 ip link set IRAN3_GRE mtu 1436 up
 
-# تونل برای سرور ایران ۴
+# تونل سرور ایران ۴
 ip tunnel add IRAN4_SIT mode sit remote $IP_IRAN_4 local $IP_KHAREJ
 ip -6 addr add fd76:2917:72d9::1/64 dev IRAN4_SIT
 ip link set IRAN4_SIT mtu 1480 up
@@ -86,7 +117,7 @@ ip -6 tunnel add IRAN4_GRE mode ip6gre remote fd76:2917:72d9::2 local fd76:2917:
 ip addr add 172.16.4.1/30 dev IRAN4_GRE
 ip link set IRAN4_GRE mtu 1436 up
 
-# تونل برای سرور ایران ۵
+# تونل سرور ایران ۵
 ip tunnel add IRAN5_SIT mode sit remote $IP_IRAN_5 local $IP_KHAREJ
 ip -6 addr add fdce:8ee9:a813::1/64 dev IRAN5_SIT
 ip link set IRAN5_SIT mtu 1480 up
@@ -94,7 +125,7 @@ ip -6 tunnel add IRAN5_GRE mode ip6gre remote fdce:8ee9:a813::2 local fdce:8ee9:
 ip addr add 172.16.5.1/30 dev IRAN5_GRE
 ip link set IRAN5_GRE mtu 1436 up
 
-# --- بخش ۴: فعال‌سازی مسیریابی و ذخیره نهایی ---
+# --- بخش ۴: ذخیره نهایی ---
 sysctl -w net.ipv4.ip_forward=1
 echo "net.ipv4.ip_forward=1" > /etc/sysctl.conf
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
@@ -102,29 +133,30 @@ netfilter-persistent save
 
 exit 0
 ```
+</details>
 
-
-# اجرای اسکریپت برای برقراری تونل
-```
+**فعال‌سازی:**
+```bash
 chmod +x /etc/rc.local
 /etc/rc.local
 ```
-بخش سوم: تنظیمات سرورهای ایران (کلاینت‌ها)
-برای هر کدام از ۵ سرور ایران، اسکریپت مخصوص به خودش را در فایل /etc/rc.local آن سرور قرار دهید.
 
-۱. اسکریپت سرور ایران ۱
-IP: 178.239.xxx.xxx
+---
 
-```
-nano /etc/rc.local
-```
+## 🇮🇷 بخش دوم: تنظیمات سرورهای ایران (Clients)
+اسکریپت مربوط به هر سرور را در فایل `/etc/rc.local` همان سرور قرار دهید.
 
-```
+<details>
+<summary><b>1️⃣ سرور ایران ۱ (کلیک کنید)</b></summary>
+
+```bash
 #!/bin/bash
 IP_IRAN="178.239.xxx.xxx"
 IP_KHAREJ="91.107.xxx.xxx"
+
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
+
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
 ip -6 addr add fd45:f7a7:539a::2/64 dev KHAREJ_SIT
 ip link set KHAREJ_SIT mtu 1480 up
@@ -137,26 +169,19 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
 ```
+</details>
 
+<details>
+<summary><b>2️⃣ سرور ایران ۲ (کلیک کنید)</b></summary>
 
-# اجرای اسکریپت برای برقراری تونل
-```
-chmod +x /etc/rc.local
-/etc/rc.local
-```
-۲. اسکریپت سرور ایران ۲
-IP: 178.239.xxx.xxx
-
-```
-nano /etc/rc.local
-```
-
-```
+```bash
 #!/bin/bash
 IP_IRAN="178.239.xxx.xxx"
 IP_KHAREJ="91.107.xxx.xxx"
+
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
+
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
 ip -6 addr add fda5:d72a:4e2f::2/64 dev KHAREJ_SIT
 ip link set KHAREJ_SIT mtu 1480 up
@@ -169,26 +194,19 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
 ```
+</details>
 
+<details>
+<summary><b>3️⃣ سرور ایران ۳ (کلیک کنید)</b></summary>
 
-# اجرای اسکریپت برای برقراری تونل
-```
-chmod +x /etc/rc.local
-/etc/rc.local
-```
-۳. اسکریپت سرور ایران ۳
-IP: 178.239.xxx.xxx
-
-```
-nano /etc/rc.local
-```
-
-```
+```bash
 #!/bin/bash
 IP_IRAN="178.239.xxx.xxx"
 IP_KHAREJ="91.107.xxx.xxx"
+
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
+
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
 ip -6 addr add fd11:e4fd:f055::2/64 dev KHAREJ_SIT
 ip link set KHAREJ_SIT mtu 1480 up
@@ -201,26 +219,19 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
 ```
+</details>
 
+<details>
+<summary><b>4️⃣ سرور ایران ۴ (کلیک کنید)</b></summary>
 
-# اجرای اسکریپت برای برقراری تونل
-```
-chmod +x /etc/rc.local
-/etc/rc.local
-```
-۴. اسکریپت سرور ایران ۴
-IP: 178.239.xxx.xxx
-
-```
-nano /etc/rc.local
-```
-
-```
+```bash
 #!/bin/bash
 IP_IRAN="178.239.xxx.xxx"
 IP_KHAREJ="91.107.xxx.xxx"
+
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
+
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
 ip -6 addr add fd76:2917:72d9::2/64 dev KHAREJ_SIT
 ip link set KHAREJ_SIT mtu 1480 up
@@ -233,26 +244,19 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
 ```
+</details>
 
+<details>
+<summary><b>5️⃣ سرور ایران ۵ (کلیک کنید)</b></summary>
 
-# اجرای اسکریپت برای برقراری تونل
-```
-chmod +x /etc/rc.local
-/etc/rc.local
-```
-۵. اسکریپت سرور ایران ۵
-IP: 178.239.xxx.xxx
-
-```
-nano /etc/rc.local
-```
-
-```
+```bash
 #!/bin/bash
 IP_IRAN="178.239.xxx.xxx"
 IP_KHAREJ="91.107.xxx.xxx"
+
 iptables -F; iptables -X; iptables -t nat -F; iptables -t nat -X;
 iptables -P INPUT ACCEPT; iptables -P OUTPUT ACCEPT; iptables -P FORWARD ACCEPT;
+
 ip tunnel add KHAREJ_SIT mode sit remote $IP_KHAREJ local $IP_IRAN
 ip -6 addr add fdce:8ee9:a813::2/64 dev KHAREJ_SIT
 ip link set KHAREJ_SIT mtu 1480 up
@@ -265,61 +269,27 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 netfilter-persistent save
 exit 0
 ```
+</details>
 
-
-# اجرای اسکریپت برای برقراری تونل
-```
+**فعال‌سازی در سرورهای ایران:**
+```bash
 chmod +x /etc/rc.local
 /etc/rc.local
 ```
-بخش چهارم: اجرا و تست نهایی
-۱. اجرای اسکریپت‌ها
-بعد از قرار دادن اسکریپت‌ها در فایل /etc/rc.local هر سرور، این دو دستور را به ترتیب روی تمام ۶ سرور اجرا کنید:
 
+---
 
+## 🧪 تست و عیب‌یابی (Testing)
 
+### 📌 پینگ گرفتن از داخل سرورهای ایران
+برای اطمینان از صحت اتصال، دستورات زیر را در هر سرور اجرا کنید:
 
-۲. تست اتصال
-لیست ایپی های سرور های ایران ( لوکال ).
+| سرور | IPv4 پینگ | IPv6 پینگ |
+| :--- | :--- | :--- |
+| **ایران ۱** | `ping 172.16.1.2` | `ping fd45:f7a7:539a::2` |
+| **ایران ۲** | `ping 172.16.2.2` | `ping fda5:d72a:4e2f::2` |
+| **ایران ۳** | `ping 172.16.3.2` | `ping fd11:e4fd:f055::2` |
+| **ایران ۴** | `ping 172.16.4.2` | `ping fd76:2917:72d9::2` |
+| **ایران ۵** | `ping 172.16.5.2` | `ping fdce:8ee9:a813::2` |
 
-
-# سرور ایران 1
-
-```
-ping 172.16.1.2
-```
-```
-ping fd45:f7a7:539a::2
-```
-# سرور ایران 2
-
-```
-ping 172.16.2.2
-```
-```
-ping fda5:d72a:4e2f::2
-```
-# سرور ایران 3
-```
-ping 172.16.3.2
-```
-```
-ping fd11:e4fd:f055::2
-```
-# سرور ایران 4
-```
-ping 172.16.4.2
-```
-```
-ping fd76:2917:72d9::2
-```
-# سرور ایران 5
-```
-ping 172.16.5.2
-```
-```
-ping fdce:8ee9:a813::2
-```
-
-
-اگر از تمام پینگ‌ها پاسخ گرفتید، شبکه‌ی شما با موفقیت کامل راه‌اندازی شده است. 🎉
+اگر پینگ دارید، تبریک! شبکه شما آماده است. 🎉
